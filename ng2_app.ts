@@ -1,4 +1,3 @@
-import { HelloWorldNgModule } from './hello/index';
 /**
  * This file defines the root module of the Angular 2 of the application.
  */
@@ -8,6 +7,8 @@ import {NgModule, Component} from '@angular/core';
 import {Router, RouterModule, UrlHandlingStrategy} from '@angular/router';
 import {BrowserModule} from '@angular/platform-browser';
 import {UpgradeModule,UpgradeComponent} from '@angular/upgrade/static';
+import { Ng1AppModule } from './ng1_app';
+import { HelloWorldNgModule } from './hello/index';
 
 // import app modules
 
@@ -16,8 +17,7 @@ import {UpgradeModule,UpgradeComponent} from '@angular/upgrade/static';
 // Using it we can tell the Angular 2 router to handle only URL starting with settings.
 export class Ng1Ng2UrlHandlingStrategy implements UrlHandlingStrategy {
   shouldProcessUrl(url) { 
-    let result = url.toString().startsWith("/settings") ||
-        url.toString().startsWith("/helloworld");
+    let result = url.toString().startsWith("/helloworld");
       console.log("[strategy.shouldProcessUrl] " + url.toString() + " " + result);
       return result;
   }
@@ -46,12 +46,13 @@ export class RootCmp {}
     UpgradeModule,
 
     // import all modules
+    Ng1AppModule,
     HelloWorldNgModule,
 
     // We don't need to provide any routes.
     // The router will collect all routes from all the registerd modules.
     RouterModule.forRoot([
-      {  path: "helloworld", loadChildren : "./hello/index#HelloWorldNgModule" }
+      // {  path: "helloworld", loadChildren : "./hello/index#HelloWorldNgModule" }
     ], {
       useHash: false,
       enableTracing: true,

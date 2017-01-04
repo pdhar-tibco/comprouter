@@ -1,4 +1,10 @@
-  'use strict';
+import { UpgradeModule } from '@angular/upgrade/static';
+import { BrowserModule } from '@angular/platform-browser';
+'use strict';
+import {NgModule} from '@angular/core';
+import {CommonModule} from '@angular/common';
+import {RouterModule} from '@angular/router';
+import {FormsModule} from '@angular/forms';
 // import angular1
 import * as angular from 'angular';
 // declare var angular:any;
@@ -17,7 +23,7 @@ class AppComponent {
     {path: '/heroes/...', name: 'Heroes', component: 'heroes' }
   ]
 }
-export const Ng1AppModule = angular.module('app', ['ngComponentRouter', 'heroes', 'crisis-center'])
+export const AppModule = angular.module('app', ['ngComponentRouter', 'heroes', 'crisis-center'])
 
 .config(function($locationProvider) {
   $locationProvider.html5Mode(true);
@@ -26,6 +32,24 @@ export const Ng1AppModule = angular.module('app', ['ngComponentRouter', 'heroes'
 .value('$routerRootComponent', 'app')
 
 .component('app', new AppComponent());
+
+@NgModule({
+  imports: [
+    BrowserModule,
+    CommonModule,
+    FormsModule,
+    UpgradeModule,
+    RouterModule.forChild([
+      
+    ])
+  ],
+  declarations: []
+})
+export class Ng1AppModule {
+    ngDoBootstrap() {
+      console.log('ngDoBootStrap()')
+    }
+}
 
 /*
 Copyright 2017 Google Inc. All Rights Reserved.

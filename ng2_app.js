@@ -1,3 +1,6 @@
+/**
+ * This file defines the root module of the Angular 2 of the application.
+ */
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -8,15 +11,13 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var index_1 = require("./hello/index");
-/**
- * This file defines the root module of the Angular 2 of the application.
- */
 // import angular2
 var core_1 = require("@angular/core");
 var router_1 = require("@angular/router");
 var platform_browser_1 = require("@angular/platform-browser");
 var static_1 = require("@angular/upgrade/static");
+var ng1_app_1 = require("./ng1_app");
+var index_1 = require("./hello/index");
 // import app modules
 // This URL handling strategy is custom and application-specific.
 // Using it we can tell the Angular 2 router to handle only URL starting with settings.
@@ -24,8 +25,7 @@ var Ng1Ng2UrlHandlingStrategy = (function () {
     function Ng1Ng2UrlHandlingStrategy() {
     }
     Ng1Ng2UrlHandlingStrategy.prototype.shouldProcessUrl = function (url) {
-        var result = url.toString().startsWith("/settings") ||
-            url.toString().startsWith("/helloworld");
+        var result = url.toString().startsWith("/helloworld");
         console.log("[strategy.shouldProcessUrl] " + url.toString() + " " + result);
         return result;
     };
@@ -68,12 +68,11 @@ Ng2AppModule = __decorate([
             platform_browser_1.BrowserModule,
             static_1.UpgradeModule,
             // import all modules
+            ng1_app_1.Ng1AppModule,
             index_1.HelloWorldNgModule,
             // We don't need to provide any routes.
             // The router will collect all routes from all the registerd modules.
-            router_1.RouterModule.forRoot([
-                { path: "helloworld", loadChildren: "./hello/index#HelloWorldNgModule" }
-            ], {
+            router_1.RouterModule.forRoot([], {
                 useHash: false,
                 enableTracing: true,
                 initialNavigation: false // we went to trigger navigation outselves after ng1 is done bootstrapping
